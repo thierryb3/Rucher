@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#EF9F27">
+<title>Mon Rucher</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<script>
+(function(){
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect width="192" height="192" rx="40" fill="#EF9F27"/><ellipse cx="96" cy="108" rx="28" ry="38" fill="#1a1a1a"/><rect x="68" y="98" width="56" height="12" rx="6" fill="#FFD700"/><rect x="68" y="116" width="56" height="12" rx="6" fill="#FFD700"/><circle cx="96" cy="66" r="20" fill="#1a1a1a"/><circle cx="88" cy="62" r="5" fill="white"/><circle cx="104" cy="62" r="5" fill="white"/><circle cx="89" cy="63" r="3" fill="#1a1a1a"/><circle cx="105" cy="63" r="3" fill="#1a1a1a"/><line x1="88" y1="47" x2="78" y2="30" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/><circle cx="78" cy="28" r="4" fill="#1a1a1a"/><line x1="104" y1="47" x2="114" y2="30" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/><circle cx="114" cy="28" r="4" fill="#1a1a1a"/><ellipse cx="58" cy="90" rx="22" ry="10" fill="white" fill-opacity="0.85" transform="rotate(-30 58 90)"/><ellipse cx="54" cy="106" rx="16" ry="8" fill="white" fill-opacity="0.65" transform="rotate(-20 54 106)"/><ellipse cx="134" cy="90" rx="22" ry="10" fill="white" fill-opacity="0.85" transform="rotate(30 134 90)"/><ellipse cx="138" cy="106" rx="16" ry="8" fill="white" fill-opacity="0.65" transform="rotate(20 138 106)"/><polygon points="96,144 90,158 102,158" fill="#1a1a1a"/></svg>`;
+  const b64='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svg)));
+  const l=document.createElement('link');l.rel='icon';l.href=b64;document.head.appendChild(l);
+  const a=document.createElement('link');a.rel='apple-touch-icon';a.href=b64;document.head.appendChild(a);
+  const m={name:'Mon Rucher',short_name:'Mon Rucher',start_url:'.',display:'standalone',background_color:'#EF9F27',theme_color:'#EF9F27',icons:[{src:b64,sizes:'192x192',type:'image/svg+xml'}]};
+  const mb=new Blob([JSON.stringify(m)],{type:'application/json'});
+  const ml=document.createElement('link');ml.rel='manifest';ml.href=URL.createObjectURL(mb);document.head.appendChild(ml);
+})();
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --amber:#EF9F27;--amber-light:#FAEEDA;--amber-dark:#633806;--amber-mid:#FAC775;
+  --green:#639922;--green-light:#EAF3DE;--green-dark:#27500A;
+  --red:#E24B4A;--red-light:#FCEBEB;--red-dark:#A32D2D;
+  --gray-light:#F1EFE8;--gray:#888780;
+  --teal:#1D9E75;--teal-light:#E1F5EE;
+  --bg:#fff;--bg2:#F8F6F0;--bg3:#F0EDE6;
+  --txt:#1a1a1a;--txt2:#666;--txt3:#999;
+  --border:#E8E4DB;--border2:#D3D1C7;
+  --radius:8px;--radius-lg:12px;--radius-xl:16px;
+}
+@media(prefers-color-scheme:dark){:root{--bg:#1a1a18;--bg2:#252520;--bg3:#2e2e28;--txt:#f0ece4;--txt2:#a09890;--txt3:#6a6460;--border:#3a3830;--border2:#4a4840;--amber-light:#2a2010;--amber-dark:#FAC775;--amber-mid:#854F0B;--green-light:#0e1f05;--green-dark:#C0DD97;--red-light:#200808;--red-dark:#F09595;--gray-light:#252520;}}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--txt);font-size:14px;min-height:100vh;max-width:480px;margin:0 auto}
+button{font-family:inherit;cursor:pointer;border:0.5px solid var(--border);background:var(--bg);color:var(--txt);border-radius:var(--radius);padding:9px 16px;font-size:13px;min-height:44px;display:inline-flex;align-items:center;gap:6px;transition:background 0.15s}
+button:active{opacity:0.75}
+button.primary{background:var(--amber);border-color:var(--amber);color:var(--amber-dark);font-weight:500}
+button.danger{background:var(--red-light);border-color:#F09595;color:var(--red-dark)}
+button.ghost{border:none;background:none;padding:6px;min-height:36px}
+input,select,textarea{font-family:inherit;font-size:14px;padding:10px 12px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--txt);width:100%;min-height:44px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-offset:1px;border-color:transparent}
+textarea{resize:vertical;min-height:80px}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+label{font-size:12px;color:var(--txt2);display:block;margin-bottom:5px;font-weight:500}
+
+.nav{display:flex;border-bottom:0.5px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100}
+.nav button{border:none;border-radius:0;padding:12px 0 10px;flex:1;font-size:11px;font-weight:500;color:var(--txt2);border-bottom:2px solid transparent;background:transparent;min-height:auto;flex-direction:column;gap:2px;justify-content:center}
+.nav button.active{color:var(--amber-dark);border-bottom-color:var(--amber)}
+.nav button i{font-size:22px}
+
+.app-header{background:var(--amber-light);padding:14px 16px 0;border-bottom:0.5px solid var(--amber-mid)}
+.app-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.app-logo{display:flex;align-items:center;gap:10px}
+.app-bee-icon{width:38px;height:38px;flex-shrink:0}
+.app-title{font-size:17px;font-weight:600;color:var(--amber-dark)}
+.app-sub{font-size:11px;color:#854F0B;margin-top:1px}
+
+.page{display:none;padding:14px 16px;padding-bottom:80px}
+.page.active{display:block}
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+
+/* Calendrier */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cal-nav button{border:none;background:none;padding:8px 12px;font-size:20px;color:var(--txt2);min-height:44px}
+.cal-title{font-weight:500;font-size:16px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:12px}
+.cal-day-header{text-align:center;font-size:11px;color:var(--txt2);padding:6px 0;font-weight:500}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:13px;border-radius:50%;cursor:pointer;position:relative;border:none;background:none;color:var(--txt);min-height:auto;padding:0;width:100%}
+.cal-day.other-month{color:var(--txt3)}
+.cal-day.today{font-weight:600;border:2px solid var(--amber)}
+.cal-day.has-visit{color:var(--red);font-weight:600}
+.cal-day.has-visit::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;background:var(--red);border-radius:50%}
+.cal-day.selected{background:var(--amber);color:var(--amber-dark);font-weight:600}
+.cal-day.selected.has-visit{background:var(--red-light);color:var(--red)}
+
+.day-panel{border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-top:14px}
+.day-panel-header{background:var(--bg2);padding:10px 14px;border-bottom:0.5px solid var(--border)}
+.visit-list{padding:8px}
+.visit-item{display:flex;align-items:center;gap:10px;padding:12px;border-radius:var(--radius);border:0.5px solid var(--border);margin-bottom:6px;cursor:pointer;background:var(--bg);min-height:56px}
+.visit-item:active{background:var(--amber-light);border-color:var(--amber)}
+.visit-hive-badge{background:var(--amber-light);color:var(--amber-dark);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:500;white-space:nowrap}
+.visit-hive-badge.ruchette{background:var(--teal-light);color:#085041}
+.add-visit-btn{width:100%;border-style:dashed;margin-top:4px;color:var(--txt2);font-size:13px;justify-content:center;min-height:44px}
+
+/* Modals */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;align-items:flex-end;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--bg);border-radius:var(--radius-xl) var(--radius-xl) 0 0;width:100%;max-height:92vh;overflow-y:auto;overscroll-behavior:contain}
+.modal-handle{width:40px;height:4px;background:var(--border2);border-radius:2px;margin:10px auto 0}
+.modal-header{padding:14px 16px 12px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg);z-index:1}
+.modal-header h2{font-size:16px;font-weight:500}
+.modal-body{padding:16px}
+.modal-footer{padding:12px 16px 24px;border-top:0.5px solid var(--border);display:flex;gap:8px;justify-content:flex-end;position:sticky;bottom:0;background:var(--bg)}
+
+/* Fiche visite */
+.fiche-title-bar{background:var(--amber-light);border-radius:var(--radius);padding:12px 14px;margin-bottom:16px;border:0.5px solid var(--amber-mid)}
+.fiche-hive-name{font-size:16px;font-weight:500;color:var(--amber-dark);display:flex;align-items:center;gap:8px}
+.fiche-hive-meta{font-size:12px;color:#854F0B;margin-top:3px}
+.fiche-date-badge{font-size:11px;color:var(--txt2);background:var(--bg);padding:3px 9px;border-radius:20px;border:0.5px solid var(--border);white-space:nowrap}
+.form-row{margin-bottom:14px}
+.toggle-group{display:flex;gap:8px}
+.toggle-btn{flex:1;padding:10px;border-radius:var(--radius);font-size:13px;border:0.5px solid var(--border);background:var(--bg);color:var(--txt);justify-content:center;min-height:44px}
+.toggle-btn.active-yes{background:var(--green-light);border-color:var(--green);color:var(--green-dark);font-weight:500}
+.toggle-btn.active-no{background:var(--red-light);border-color:#F09595;color:var(--red-dark);font-weight:500}
+.divider{border:none;border-top:0.5px solid var(--border);margin:16px 0}
+
+/* Sélecteur numérique +/- */
+.num-picker{display:flex;align-items:center;gap:0;border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--bg)}
+.num-picker button{border:none;border-radius:0;min-height:48px;width:52px;font-size:22px;color:var(--amber-dark);background:var(--bg2);flex-shrink:0;justify-content:center;padding:0}
+.num-picker button:active{background:var(--amber-light)}
+.num-picker .num-val{flex:1;text-align:center;font-size:20px;font-weight:500;color:var(--txt);padding:10px 4px;background:var(--bg);min-height:48px;display:flex;align-items:center;justify-content:center;border-left:0.5px solid var(--border);border-right:0.5px solid var(--border)}
+.num-unit{font-size:12px;color:var(--txt2);margin-left:4px;font-weight:400}
+
+/* Force colonie — boutons % */
+.strength-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.str-btn{padding:10px 4px;border-radius:var(--radius);font-size:13px;font-weight:500;border:0.5px solid var(--border);background:var(--bg);color:var(--txt);justify-content:center;min-height:44px;flex-direction:column;gap:2px}
+.str-btn.active{border-color:var(--amber);background:var(--amber-light);color:var(--amber-dark)}
+.str-btn .str-dot{width:8px;height:8px;border-radius:50%;margin:0 auto}
+
+/* Ruches */
+.hive-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:14px;margin-bottom:10px;background:var(--bg);display:flex;align-items:center;gap:12px}
+.hive-icon-wrap{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.hive-info{flex:1;min-width:0}
+.hive-actions{display:flex;gap:6px}
+.hive-actions button{padding:8px;min-height:40px;width:40px;justify-content:center}
+.empty-state{text-align:center;padding:48px 20px;color:var(--txt2)}
+.empty-state i{font-size:48px;margin-bottom:12px;display:block;color:var(--gray)}
+
+.hive-select-list{display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow-y:auto}
+.hive-select-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border:0.5px solid var(--border);border-radius:var(--radius);cursor:pointer;background:var(--bg);min-height:56px}
+.hive-select-item:active{border-color:var(--amber);background:var(--amber-light)}
+
+/* Récap */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.stat-card{background:var(--bg2);border-radius:var(--radius);padding:14px;text-align:center}
+.stat-val{font-size:26px;font-weight:500}
+.stat-lbl{font-size:11px;color:var(--txt2);margin-top:3px}
+.hive-recap-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);margin-bottom:12px;overflow:hidden}
+.hive-recap-header{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg2);border-bottom:0.5px solid var(--border)}
+.hive-recap-body{padding:10px 14px}
+.hive-recap-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:0.5px solid var(--border)}
+.hive-recap-row:last-child{border:none}
+.hive-recap-row span:first-child{color:var(--txt2)}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:500}
+.badge-ok{background:var(--green-light);color:var(--green-dark)}
+.badge-warn{background:var(--amber-light);color:var(--amber-dark)}
+.badge-no{background:var(--gray-light);color:#5F5E5A}
+.badge-danger{background:var(--red-light);color:var(--red-dark)}
+
+/* Export */
+.export-section{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:14px;background:var(--bg2)}
+.export-section h3{margin-bottom:6px;font-size:14px;display:flex;align-items:center;gap:6px}
+.export-section p{font-size:12px;color:var(--txt2);margin-bottom:12px;line-height:1.6}
+
+.qdot{display:inline-block;width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;z-index:500;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="app-header-top">
+    <div class="app-logo">
+      <svg class="app-bee-icon" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="192" height="192" rx="40" fill="#EF9F27"/>
+        <ellipse cx="96" cy="108" rx="28" ry="38" fill="#1a1a1a"/>
+        <rect x="68" y="98" width="56" height="12" rx="6" fill="#FFD700"/>
+        <rect x="68" y="116" width="56" height="12" rx="6" fill="#FFD700"/>
+        <circle cx="96" cy="66" r="20" fill="#1a1a1a"/>
+        <circle cx="88" cy="62" r="5" fill="white"/><circle cx="104" cy="62" r="5" fill="white"/>
+        <circle cx="89" cy="63" r="3" fill="#1a1a1a"/><circle cx="105" cy="63" r="3" fill="#1a1a1a"/>
+        <line x1="88" y1="47" x2="78" y2="30" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="78" cy="28" r="4" fill="#1a1a1a"/>
+        <line x1="104" y1="47" x2="114" y2="30" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="114" cy="28" r="4" fill="#1a1a1a"/>
+        <ellipse cx="58" cy="90" rx="22" ry="10" fill="white" fill-opacity="0.85" transform="rotate(-30 58 90)"/>
+        <ellipse cx="54" cy="106" rx="16" ry="8" fill="white" fill-opacity="0.65" transform="rotate(-20 54 106)"/>
+        <ellipse cx="134" cy="90" rx="22" ry="10" fill="white" fill-opacity="0.85" transform="rotate(30 134 90)"/>
+        <ellipse cx="138" cy="106" rx="16" ry="8" fill="white" fill-opacity="0.65" transform="rotate(20 138 106)"/>
+        <polygon points="96,144 90,158 102,158" fill="#1a1a1a"/>
+      </svg>
+      <div>
+        <div class="app-title">Mon Rucher</div>
+        <div class="app-sub" id="hive-count-sub">Chargement…</div>
+      </div>
+    </div>
+  </div>
+  <nav class="nav" style="background:transparent;border:none;padding:0">
+    <button class="active" onclick="showPage('cal')" id="nav-cal"><i class="ti ti-calendar"></i>Calendrier</button>
+    <button onclick="showPage('hives')" id="nav-hives"><i class="ti ti-home"></i>Ruches</button>
+    <button onclick="showPage('recap')" id="nav-recap"><i class="ti ti-chart-bar"></i>Récap</button>
+    <button onclick="showPage('data')" id="nav-data"><i class="ti ti-cloud"></i>Données</button>
+  </nav>
+</div>
+
+<!-- PAGE Calendrier -->
+<section class="page active" id="page-cal">
+  <div class="cal-nav">
+    <button onclick="changeMonth(-1)" aria-label="Mois précédent"><i class="ti ti-chevron-left"></i></button>
+    <span class="cal-title" id="cal-month-label"></span>
+    <button onclick="changeMonth(1)" aria-label="Mois suivant"><i class="ti ti-chevron-right"></i></button>
+  </div>
+  <div class="cal-grid" id="cal-grid"></div>
+  <div class="day-panel" id="day-panel" style="display:none">
+    <div class="day-panel-header"><h3 id="day-panel-title" style="font-size:14px;font-weight:500"></h3></div>
+    <div class="visit-list" id="visit-list"></div>
+  </div>
+</section>
+
+<!-- PAGE Ruches -->
+<section class="page" id="page-hives">
+  <div class="page-header">
+    <h2>Mes ruches</h2>
+    <button class="primary" onclick="openHiveModal()"><i class="ti ti-plus"></i> Ajouter</button>
+  </div>
+  <div id="hive-list"></div>
+</section>
+
+<!-- PAGE Récap -->
+<section class="page" id="page-recap">
+  <div class="page-header"><h2>Vue d'ensemble</h2></div>
+  <div id="recap-content"></div>
+</section>
+
+<!-- PAGE Données -->
+<section class="page" id="page-data">
+  <div class="page-header"><h2>Mes données</h2></div>
+  <div class="export-section">
+    <h3><i class="ti ti-download"></i> Exporter</h3>
+    <p>Télécharge un fichier <strong>rucher_sauvegarde.json</strong>. Déposez-le ensuite dans Google Drive pour le conserver.</p>
+    <button class="primary" onclick="exportData()" style="width:100%;justify-content:center"><i class="ti ti-download"></i> Télécharger la sauvegarde</button>
+  </div>
+  <div class="export-section">
+    <h3><i class="ti ti-upload"></i> Importer</h3>
+    <p>Rechargez une sauvegarde existante. <strong>Attention :</strong> les données actuelles seront remplacées.</p>
+    <label for="import-file">
+      <div style="border:0.5px solid var(--border);border-radius:var(--radius);padding:10px 16px;text-align:center;background:var(--bg);color:var(--txt2);font-size:13px;cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:center;gap:6px">
+        <i class="ti ti-upload"></i> Sélectionner un fichier de sauvegarde
+      </div>
+    </label>
+    <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
+  </div>
+  <div class="export-section">
+    <h3><i class="ti ti-info-circle"></i> Informations</h3>
+    <p id="data-info" style="margin-bottom:0"></p>
+  </div>
+</section>
+
+<!-- MODAL Fiche visite -->
+<div class="modal-bg" id="visit-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 id="visit-modal-title">Visite</h2>
+      <button class="ghost" onclick="closeModal('visit-modal')"><i class="ti ti-x" style="font-size:20px"></i></button>
+    </div>
+    <div class="modal-body" id="visit-modal-body"></div>
+    <div class="modal-footer">
+      <button id="visit-delete-btn" class="danger" style="display:none" onclick="deleteVisit()"><i class="ti ti-trash"></i></button>
+      <button onclick="closeModal('visit-modal')">Annuler</button>
+      <button class="primary" onclick="saveVisit()"><i class="ti ti-check"></i> Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL Choix ruche -->
+<div class="modal-bg" id="hive-pick-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2>Choisir une ruche</h2>
+      <button class="ghost" onclick="closeModal('hive-pick-modal')"><i class="ti ti-x" style="font-size:20px"></i></button>
+    </div>
+    <div class="modal-body"><div class="hive-select-list" id="hive-select-list"></div></div>
+  </div>
+</div>
+
+<!-- MODAL Ajouter/modifier ruche -->
+<div class="modal-bg" id="hive-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 id="hive-modal-title">Nouvelle ruche</h2>
+      <button class="ghost" onclick="closeModal('hive-modal')"><i class="ti ti-x" style="font-size:20px"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row"><label for="hive-name">Nom</label><input type="text" id="hive-name" placeholder="ex : Lucie, Ruche 3…" autocomplete="off"></div>
+      <div class="form-row"><label for="hive-type">Type</label>
+        <select id="hive-type"><option value="ruche">Ruche</option><option value="ruchette">Ruchette</option></select>
+      </div>
+      <div class="form-row"><label for="hive-queen-color">Couleur de la reine</label>
+        <select id="hive-queen-color">
+          <option value="blanche">Blanche (années 1 ou 6)</option>
+          <option value="jaune">Jaune (années 2 ou 7)</option>
+          <option value="rouge">Rouge (années 3 ou 8)</option>
+          <option value="verte">Verte (années 4 ou 9)</option>
+          <option value="bleue">Bleue (années 5 ou 0)</option>
+          <option value="non marquée">Non marquée</option>
+          <option value="pas de reine">Pas de reine</option>
+        </select>
+      </div>
+      <div class="form-row"><label for="hive-queen-line">Lignée de la reine</label><input type="text" id="hive-queen-line" placeholder="ex : Buckfast, Noire locale, Carnica…" autocomplete="off"></div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeModal('hive-modal')">Annuler</button>
+      <button class="primary" onclick="saveHive()"><i class="ti ti-check"></i> Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const MONTHS=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const DAYS=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+const QCOL={blanche:'#f0f0f0',jaune:'#FFD700',rouge:'#E24B4A',verte:'#639922',bleue:'#378ADD','non marquée':'#aaa','pas de reine':'#333'};
+const QBRD={blanche:'#ccc',jaune:'rgba(0,0,0,0.15)',rouge:'rgba(0,0,0,0.15)',verte:'rgba(0,0,0,0.15)',bleue:'rgba(0,0,0,0.15)','non marquée':'#888','pas de reine':'#000'};
+const STRENGTH_LEVELS=[{v:20,lbl:'20%',col:'#E24B4A'},{v:40,lbl:'40%',col:'#F08C3A'},{v:60,lbl:'60%',col:'#EFC830'},{v:80,lbl:'80%',col:'#8DC63F'},{v:100,lbl:'100%',col:'#639922'}];
+
+let S={hives:[],visits:{},month:new Date().getMonth(),year:new Date().getFullYear(),selectedDate:null,editingHiveId:null,editingVisitKey:null,pendingDate:null,pendingHiveId:null};
+
+function load(){try{const d=JSON.parse(localStorage.getItem('rucher_v3')||'{}');S.hives=d.hives||[];S.visits=d.visits||{};}catch(e){}}
+function save(){try{localStorage.setItem('rucher_v3',JSON.stringify({hives:S.hives,visits:S.visits}));}catch(e){}updateSub();}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function dk(y,m,d){return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
+function toast(msg,dur=2500){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
+function updateSub(){const n=S.hives.length;document.getElementById('hive-count-sub').textContent=n===0?'Aucune ruche':n===1?'1 ruche':n+' ruches';}
+
+// Récupère la dernière visite d'une ruche avant une date donnée
+function getLastVisit(hiveId, beforeDate){
+  return Object.values(S.visits)
+    .filter(v=>v.hiveId===hiveId && v.date < beforeDate)
+    .sort((a,b)=>b.date.localeCompare(a.date))[0] || null;
+}
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.getElementById('nav-'+id).classList.add('active');
+  if(id==='hives')renderHiveList();
+  if(id==='recap')renderRecap();
+  if(id==='cal')renderCalendar();
+  if(id==='data')renderDataInfo();
+}
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+/* ===== CALENDRIER ===== */
+function changeMonth(d){S.month+=d;if(S.month>11){S.month=0;S.year++;}if(S.month<0){S.month=11;S.year--;}S.selectedDate=null;document.getElementById('day-panel').style.display='none';renderCalendar();}
+
+function renderCalendar(){
+  const{month:m,year:y}=S;
+  document.getElementById('cal-month-label').textContent=MONTHS[m]+' '+y;
+  const grid=document.getElementById('cal-grid');
+  grid.innerHTML='';
+  DAYS.forEach(d=>{const el=document.createElement('div');el.className='cal-day-header';el.textContent=d;grid.appendChild(el);});
+  const first=new Date(y,m,1);let sd=first.getDay();sd=sd===0?6:sd-1;
+  const dim=new Date(y,m+1,0).getDate();const pd=new Date(y,m,0).getDate();
+  const today=new Date();const ts=dk(today.getFullYear(),today.getMonth(),today.getDate());
+  for(let i=0;i<sd;i++){const b=document.createElement('button');b.className='cal-day other-month';b.textContent=pd-sd+1+i;grid.appendChild(b);}
+  for(let d=1;d<=dim;d++){
+    const b=document.createElement('button');const dkey=dk(y,m,d);
+    let cls='cal-day';
+    if(dkey===ts)cls+=' today';
+    if(Object.values(S.visits).some(v=>v.date===dkey))cls+=' has-visit';
+    if(S.selectedDate===dkey)cls+=' selected';
+    b.className=cls;b.textContent=d;b.setAttribute('aria-label',d+' '+MONTHS[m]);
+    b.onclick=()=>selectDay(dkey);grid.appendChild(b);
+  }
+  for(let i=1;i<=42-sd-dim;i++){const b=document.createElement('button');b.className='cal-day other-month';b.textContent=i;grid.appendChild(b);}
+  if(S.selectedDate)renderDayPanel(S.selectedDate);
+}
+
+function selectDay(dkey){S.selectedDate=dkey;renderCalendar();renderDayPanel(dkey);}
+
+function renderDayPanel(dkey){
+  document.getElementById('day-panel').style.display='block';
+  const[y,m,d]=dkey.split('-').map(Number);
+  document.getElementById('day-panel-title').textContent=`${d} ${MONTHS[m-1]} ${y}`;
+  const list=document.getElementById('visit-list');list.innerHTML='';
+  Object.entries(S.visits).filter(([,v])=>v.date===dkey).forEach(([vk,v])=>{
+    const h=S.hives.find(h=>h.id===v.hiveId);if(!h)return;
+    const item=document.createElement('div');item.className='visit-item';
+    item.innerHTML=`<span class="qdot" style="background:${QCOL[h.queenColor]||'#aaa'};border:1.5px solid ${QBRD[h.queenColor]||'#888'}"></span>
+      <div style="flex:1;min-width:0"><div style="font-weight:500;font-size:14px">${h.name}</div><div style="font-size:11px;color:var(--txt2)">${h.type} — ${h.queenLine||'lignée ?'}</div></div>
+      <span class="visit-hive-badge ${h.type==='ruchette'?'ruchette':''}">${h.type==='ruchette'?'Ruchette':'Ruche'}</span>`;
+    item.onclick=()=>openVisitModal(vk,dkey);list.appendChild(item);
+  });
+  const btn=document.createElement('button');btn.className='add-visit-btn';
+  btn.innerHTML='<i class="ti ti-plus"></i> Nouvelle visite';
+  btn.onclick=()=>openHivePicker(dkey);list.appendChild(btn);
+}
+
+/* ===== CHOIX RUCHE ===== */
+function openHivePicker(dkey){
+  S.pendingDate=dkey;const list=document.getElementById('hive-select-list');list.innerHTML='';
+  if(!S.hives.length){list.innerHTML='<p style="color:var(--txt2);font-size:13px;padding:8px">Aucune ruche. Allez d\'abord dans l\'onglet Ruches.</p>';return;}
+  S.hives.forEach(h=>{
+    const item=document.createElement('div');item.className='hive-select-item';
+    item.innerHTML=`<span class="qdot" style="background:${QCOL[h.queenColor]||'#aaa'};border:1.5px solid ${QBRD[h.queenColor]||'#888'};width:14px;height:14px"></span>
+      <div><div style="font-weight:500;font-size:14px">${h.name}</div><div style="font-size:12px;color:var(--txt2)">${h.type} — ${h.queenLine||'lignée ?'}</div></div>`;
+    item.onclick=()=>{closeModal('hive-pick-modal');openVisitModal(null,dkey,h.id);};list.appendChild(item);
+  });
+  openModal('hive-pick-modal');
+}
+
+/* ===== FICHE DE VISITE ===== */
+function numPicker(id, min, max, val, unit=''){
+  return `<div class="num-picker">
+    <button type="button" onclick="changeNum('${id}',${min},${max},-1)">−</button>
+    <div class="num-val" id="${id}-val">${val}${unit?'<span class="num-unit">'+unit+'</span>':''}</div>
+    <button type="button" onclick="changeNum('${id}',${min},${max},1)">+</button>
+  </div>`;
+}
+
+function changeNum(id, min, max, delta){
+  const current = window.CF['_num_'+id];
+  const next = Math.max(min, Math.min(max, current + delta));
+  window.CF['_num_'+id] = next;
+  const el = document.getElementById(id+'-val');
+  const unit = el.querySelector('.num-unit');
+  el.childNodes[0].textContent = next;
+  // Sync dans CF
+  if(id==='frames-occ') window.CF.framesOccupied=next;
+  if(id==='wax-frames') window.CF.waxFrames=next;
+  if(id==='num-supers') window.CF.supers=next;
+}
+
+function setStrength(val){
+  window.CF.colonyStrength=val;
+  document.querySelectorAll('.str-btn').forEach(b=>{
+    b.classList.toggle('active', parseInt(b.dataset.val)===val);
+  });
+}
+
+function openVisitModal(visitKey, dkey, hiveId){
+  S.editingVisitKey=visitKey;S.pendingDate=dkey;S.pendingHiveId=hiveId;
+  const visit=visitKey?S.visits[visitKey]:null;
+  const hive=visit?S.hives.find(h=>h.id===visit.hiveId):S.hives.find(h=>h.id===hiveId);
+  if(!hive)return;
+  document.getElementById('visit-modal-title').textContent=visit?'Modifier la visite':'Nouvelle visite';
+  document.getElementById('visit-delete-btn').style.display=visit?'inline-flex':'none';
+  const[y,m,d]=dkey.split('-').map(Number);
+  const ds=`${d} ${MONTHS[m-1]} ${y}`;
+  const col=QCOL[hive.queenColor]||'#aaa';const brd=QBRD[hive.queenColor]||'#888';
+
+  // Valeurs par défaut : visite en cours ou dernière visite connue ou zéro
+  let prev = null;
+  if(!visit) prev = getLastVisit(hive.id, dkey);
+  const src = visit || prev || {};
+  const v={
+    queenSeen: src.queenSeen !== undefined ? src.queenSeen : null,
+    framesOccupied: src.framesOccupied !== undefined ? src.framesOccupied : 5,
+    waxFrames: 0, // toujours remis à 0 (ajout du jour)
+    colonyStrength: src.colonyStrength !== undefined ? src.colonyStrength : 60,
+    royalCells: src.royalCells !== undefined ? src.royalCells : null,
+    broodPresent: src.broodPresent !== undefined ? src.broodPresent : null,
+    supers: src.supers !== undefined ? src.supers : 0,
+    comments: visit ? (visit.comments||'') : '',
+    queenColor: visit ? (visit.queenColor || hive.queenColor) : hive.queenColor
+  };
+
+  // Construit les boutons force colonie
+  const strBtns = STRENGTH_LEVELS.map(l=>
+    `<button type="button" class="str-btn${v.colonyStrength===l.v?' active':''}" data-val="${l.v}" onclick="setStrength(${l.v})">
+      <div class="str-dot" style="background:${l.col}"></div>${l.lbl}
+    </button>`
+  ).join('');
+
+  // Options couleur reine pour la fiche
+  const queenOpts = ['blanche','jaune','rouge','verte','bleue','non marquée','pas de reine'].map(c=>
+    `<option value="${c}" ${v.queenColor===c?'selected':''}>${c.charAt(0).toUpperCase()+c.slice(1)}</option>`
+  ).join('');
+
+  document.getElementById('visit-modal-body').innerHTML=`
+    <div class="fiche-title-bar">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+        <div>
+          <div class="fiche-hive-name"><span class="qdot" id="queen-dot-preview" style="background:${QCOL[v.queenColor]||'#aaa'};border:1.5px solid ${QBRD[v.queenColor]||'#888'};width:12px;height:12px"></span>${hive.name}</div>
+          <div class="fiche-hive-meta">${hive.type} — ${hive.queenLine||'lignée ?'}</div>
+        </div>
+        <span class="fiche-date-badge">${ds}</span>
+      </div>
+    </div>
+
+    ${prev && !visit ? `<div style="background:var(--teal-light);border:0.5px solid #8ECFBE;border-radius:var(--radius);padding:8px 12px;margin-bottom:14px;font-size:12px;color:#085041"><i class="ti ti-history" style="font-size:13px;vertical-align:-2px"></i> Valeurs pré-remplies depuis la visite du ${(()=>{const[py,pm,pd]=prev.date.split('-').map(Number);return pd+' '+MONTHS[pm-1]+' '+py;})()} </div>` : ''}
+
+    <div class="form-row">
+      <label>Couleur de la reine</label>
+      <select id="visit-queen-color" onchange="updateQueenDot(this.value)">${queenOpts}</select>
+    </div>
+    <div class="divider"></div>
+
+    <div class="form-row">
+      <label>Reine vue ?</label>
+      <div class="toggle-group">
+        <button type="button" class="toggle-btn ${v.queenSeen===true?'active-yes':''}" id="q-yes" onclick="setT('queenSeen',true,'q-yes','q-no')"><i class="ti ti-check"></i> Oui</button>
+        <button type="button" class="toggle-btn ${v.queenSeen===false?'active-no':''}" id="q-no" onclick="setT('queenSeen',false,'q-yes','q-no')"><i class="ti ti-x"></i> Non</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="form-row">
+      <label>Cadres occupés</label>
+      ${numPicker('frames-occ', 0, 20, v.framesOccupied, ' / 20')}
+    </div>
+
+    <div class="form-row">
+      <label>Cadres de cire gaufrée ajoutés</label>
+      ${numPicker('wax-frames', 0, 10, v.waxFrames)}
+    </div>
+
+    <div class="form-row">
+      <label>Force de la colonie</label>
+      <div class="strength-grid">${strBtns}</div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="form-row">
+      <label>Cellules royales présentes ?</label>
+      <div class="toggle-group">
+        <button type="button" class="toggle-btn ${v.royalCells===true?'active-yes':''}" id="rc-yes" onclick="setT('royalCells',true,'rc-yes','rc-no')"><i class="ti ti-check"></i> Oui</button>
+        <button type="button" class="toggle-btn ${v.royalCells===false?'active-no':''}" id="rc-no" onclick="setT('royalCells',false,'rc-yes','rc-no')"><i class="ti ti-x"></i> Non</button>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Couvain présent ?</label>
+      <div class="toggle-group">
+        <button type="button" class="toggle-btn ${v.broodPresent===true?'active-yes':''}" id="bp-yes" onclick="setT('broodPresent',true,'bp-yes','bp-no')"><i class="ti ti-check"></i> Oui</button>
+        <button type="button" class="toggle-btn ${v.broodPresent===false?'active-no':''}" id="bp-no" onclick="setT('broodPresent',false,'bp-yes','bp-no')"><i class="ti ti-x"></i> Non</button>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Nombre de hausses</label>
+      ${numPicker('num-supers', 0, 5, v.supers)}
+    </div>
+    <div class="divider"></div>
+
+    <div class="form-row">
+      <label for="comments">Commentaires libres</label>
+      <textarea id="comments" placeholder="Observations, comportement, traitements…">${v.comments}</textarea>
+    </div>`;
+
+  // Initialise CF
+  window.CF={
+    queenSeen:v.queenSeen,framesOccupied:v.framesOccupied,waxFrames:v.waxFrames,
+    colonyStrength:v.colonyStrength,royalCells:v.royalCells,broodPresent:v.broodPresent,
+    supers:v.supers,
+    '_num_frames-occ':v.framesOccupied,
+    '_num_wax-frames':v.waxFrames,
+    '_num_num-supers':v.supers
+  };
+  openModal('visit-modal');
+}
+
+function updateQueenDot(val){
+  const dot=document.getElementById('queen-dot-preview');
+  if(dot){dot.style.background=QCOL[val]||'#aaa';dot.style.border='1.5px solid '+(QBRD[val]||'#888');}
+}
+
+function setT(field,val,yId,nId){
+  window.CF[field]=val;
+  document.getElementById(yId).className='toggle-btn'+(val===true?' active-yes':'');
+  document.getElementById(nId).className='toggle-btn'+(val===false?' active-no':'');
+}
+
+function saveVisit(){
+  const hiveId=S.editingVisitKey?S.visits[S.editingVisitKey].hiveId:S.pendingHiveId;
+  const newQueenColor=document.getElementById('visit-queen-color').value;
+  const key=S.editingVisitKey||uid();
+  S.visits[key]={
+    hiveId,date:S.pendingDate,
+    queenSeen:window.CF.queenSeen,
+    framesOccupied:window.CF.framesOccupied,
+    waxFrames:window.CF.waxFrames,
+    colonyStrength:window.CF.colonyStrength,
+    royalCells:window.CF.royalCells,
+    broodPresent:window.CF.broodPresent,
+    supers:window.CF.supers,
+    queenColor:newQueenColor,
+    comments:document.getElementById('comments').value
+  };
+  // Met à jour la couleur de la reine dans la fiche ruche si elle a changé
+  const hive=S.hives.find(h=>h.id===hiveId);
+  if(hive && hive.queenColor!==newQueenColor){
+    hive.queenColor=newQueenColor;
+  }
+  save();closeModal('visit-modal');renderCalendar();if(S.selectedDate)renderDayPanel(S.selectedDate);toast('Visite enregistrée ✓');
+}
+
+function deleteVisit(){
+  if(!S.editingVisitKey||!confirm('Supprimer cette visite ?'))return;
+  delete S.visits[S.editingVisitKey];
+  save();closeModal('visit-modal');renderCalendar();if(S.selectedDate)renderDayPanel(S.selectedDate);toast('Visite supprimée');
+}
+
+/* ===== RUCHES ===== */
+function openHiveModal(hiveId){
+  S.editingHiveId=hiveId||null;
+  const h=hiveId?S.hives.find(h=>h.id===hiveId):null;
+  document.getElementById('hive-modal-title').textContent=h?'Modifier la ruche':'Nouvelle ruche';
+  document.getElementById('hive-name').value=h?h.name:'';
+  document.getElementById('hive-type').value=h?h.type:'ruche';
+  document.getElementById('hive-queen-color').value=h?h.queenColor:'jaune';
+  document.getElementById('hive-queen-line').value=h?h.queenLine:'';
+  openModal('hive-modal');setTimeout(()=>document.getElementById('hive-name').focus(),300);
+}
+
+function saveHive(){
+  const name=document.getElementById('hive-name').value.trim();
+  if(!name){alert('Veuillez saisir un nom.');return;}
+  const data={id:S.editingHiveId||uid(),name,type:document.getElementById('hive-type').value,queenColor:document.getElementById('hive-queen-color').value,queenLine:document.getElementById('hive-queen-line').value.trim()};
+  if(S.editingHiveId){const i=S.hives.findIndex(h=>h.id===S.editingHiveId);if(i>=0)S.hives[i]=data;}
+  else S.hives.push(data);
+  save();closeModal('hive-modal');renderHiveList();toast(S.editingHiveId?'Ruche modifiée ✓':'Ruche ajoutée ✓');
+}
+
+function deleteHive(hiveId){
+  const h=S.hives.find(h=>h.id===hiveId);if(!h)return;
+  if(!confirm(`Supprimer "${h.name}" et toutes ses visites ?`))return;
+  S.hives=S.hives.filter(h=>h.id!==hiveId);
+  Object.keys(S.visits).forEach(k=>{if(S.visits[k].hiveId===hiveId)delete S.visits[k];});
+  save();renderHiveList();renderCalendar();toast('Ruche supprimée');
+}
+
+function renderHiveList(){
+  const list=document.getElementById('hive-list');
+  if(!S.hives.length){list.innerHTML='<div class="empty-state"><i class="ti ti-bee"></i><p style="margin-top:8px">Aucune ruche pour l\'instant.<br>Appuyez sur Ajouter pour commencer.</p></div>';return;}
+  list.innerHTML='';
+  S.hives.forEach(h=>{
+    const col=QCOL[h.queenColor]||'#aaa';const brd=QBRD[h.queenColor]||'#888';
+    const vc=Object.values(S.visits).filter(v=>v.hiveId===h.id).length;
+    const card=document.createElement('div');card.className='hive-card';
+    card.innerHTML=`
+      <div class="hive-icon-wrap" style="background:${col}22;border:2px solid ${col}"><i class="ti ti-home" style="color:${col==='#f0f0f0'?'#888':col}"></i></div>
+      <div class="hive-info">
+        <div style="font-weight:500;font-size:15px">${h.name} <span style="font-size:11px;color:var(--txt2);font-weight:400">(${h.type})</span></div>
+        <div style="font-size:12px;color:var(--txt2);margin-top:2px">Reine <span class="qdot" style="background:${col};border:1.5px solid ${brd}"></span> ${h.queenColor} — ${h.queenLine||'lignée ?'}</div>
+        <div style="font-size:11px;color:var(--txt3);margin-top:3px">${vc} visite${vc>1?'s':''} enregistrée${vc>1?'s':''}</div>
+      </div>
+      <div class="hive-actions">
+        <button onclick="openHiveModal('${h.id}')" aria-label="Modifier ${h.name}"><i class="ti ti-edit"></i></button>
+        <button class="danger" onclick="deleteHive('${h.id}')" aria-label="Supprimer ${h.name}"><i class="ti ti-trash"></i></button>
+      </div>`;
+    list.appendChild(card);
+  });
+}
+
+/* ===== RÉCAP ===== */
+function renderRecap(){
+  const el=document.getElementById('recap-content');
+  const allV=Object.values(S.visits);const tot=allV.length;
+  const avgS=tot?Math.round(allV.reduce((s,v)=>s+v.colonyStrength,0)/tot):0;
+  const wRC=allV.filter(v=>v.royalCells===true).length;
+  el.innerHTML=`<div class="stats-grid">
+    <div class="stat-card"><div class="stat-val">${S.hives.length}</div><div class="stat-lbl">Ruches / ruchettes</div></div>
+    <div class="stat-card"><div class="stat-val">${tot}</div><div class="stat-lbl">Visites totales</div></div>
+    <div class="stat-card"><div class="stat-val">${avgS}%</div><div class="stat-lbl">Force moyenne</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:${wRC>0?'var(--red)':'inherit'}">${wRC}</div><div class="stat-lbl">Visites avec c. royales</div></div>
+  </div>`;
+  if(!S.hives.length){el.innerHTML+='<p style="color:var(--txt2);font-size:13px">Aucune ruche configurée.</p>';return;}
+  S.hives.forEach(h=>{
+    const col=QCOL[h.queenColor]||'#aaa';const brd=QBRD[h.queenColor]||'#888';
+    const hv=allV.filter(v=>v.hiveId===h.id).sort((a,b)=>b.date.localeCompare(a.date));
+    const last=hv[0];const card=document.createElement('div');card.className='hive-recap-card';
+    if(!last){
+      card.innerHTML=`<div class="hive-recap-header"><div style="display:flex;align-items:center;gap:8px"><span class="qdot" style="background:${col};border:1.5px solid ${brd}"></span><span style="font-weight:500">${h.name}</span><span style="font-size:11px;color:var(--txt2)">${h.type}</span></div></div><div class="hive-recap-body"><p style="font-size:12px;color:var(--txt2);font-style:italic">Aucune visite enregistrée</p></div>`;
+    } else {
+      const[y,m,d]=last.date.split('-').map(Number);const ds=`${d} ${MONTHS[m-1]} ${y}`;
+      // Couleur reine de la dernière visite
+      const lastCol=QCOL[last.queenColor||h.queenColor]||col;
+      const lastBrd=QBRD[last.queenColor||h.queenColor]||brd;
+      const yn=(v,wno)=>v===true?'<span class="badge badge-ok"><i class="ti ti-check" style="font-size:11px"></i> Oui</span>':v===false?(wno?'<span class="badge badge-warn"><i class="ti ti-alert-triangle" style="font-size:11px"></i> Non</span>':'<span class="badge badge-no">Non</span>'):'<span class="badge badge-no">?</span>';
+      card.innerHTML=`
+        <div class="hive-recap-header">
+          <div style="display:flex;align-items:center;gap:8px"><span class="qdot" style="background:${lastCol};border:1.5px solid ${lastBrd}"></span><span style="font-weight:500">${h.name}</span><span style="font-size:11px;color:var(--txt2)">${h.type} — ${h.queenLine||'?'}</span></div>
+          <span style="font-size:11px;color:var(--txt2)">Dernière : ${ds}</span>
+        </div>
+        <div class="hive-recap-body">
+          <div class="hive-recap-row"><span>Reine vue</span><span>${yn(last.queenSeen,false)}</span></div>
+          <div class="hive-recap-row"><span>Couleur reine</span><span><span class="qdot" style="background:${lastCol};border:1.5px solid ${lastBrd}"></span> ${last.queenColor||h.queenColor}</span></div>
+          <div class="hive-recap-row"><span>Cadres occupés</span><span>${last.framesOccupied} / 20</span></div>
+          <div class="hive-recap-row"><span>Cire gaufrée ajoutée</span><span>${last.waxFrames} cadre${last.waxFrames>1?'s':''}</span></div>
+          <div class="hive-recap-row"><span>Force colonie</span><span>${last.colonyStrength}%</span></div>
+          <div class="hive-recap-row"><span>Cellules royales</span><span>${last.royalCells===true?'<span class="badge badge-danger"><i class="ti ti-alert-triangle" style="font-size:11px"></i> Oui</span>':last.royalCells===false?'<span class="badge badge-ok">Non</span>':'<span class="badge badge-no">?</span>'}</span></div>
+          <div class="hive-recap-row"><span>Couvain</span><span>${yn(last.broodPresent,true)}</span></div>
+          <div class="hive-recap-row"><span>Hausses</span><span>${last.supers}</span></div>
+          ${last.comments?`<div class="hive-recap-row"><span>Note</span><span style="font-style:italic;font-size:12px;max-width:55%;text-align:right">${last.comments.slice(0,60)}${last.comments.length>60?'…':''}</span></div>`:''}
+          ${hv.length>1?`<div style="font-size:11px;color:var(--txt3);margin-top:6px;text-align:right">${hv.length} visites au total</div>`:''}
+        </div>`;
+    }
+    el.appendChild(card);
+  });
+}
+
+/* ===== EXPORT / IMPORT ===== */
+function exportData(){
+  const data={version:1,exportDate:new Date().toISOString(),hives:S.hives,visits:S.visits};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;
+  const d=new Date();a.download=`rucher_sauvegarde_${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}.json`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);toast('Sauvegarde téléchargée ✓');
+}
+
+function importData(event){
+  const file=event.target.files[0];if(!file)return;
+  if(!confirm('Importer cette sauvegarde ? Les données actuelles seront remplacées.')){event.target.value='';return;}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);if(!data.hives||!data.visits)throw new Error();
+      S.hives=data.hives;S.visits=data.visits;save();renderCalendar();renderHiveList();toast('Sauvegarde importée ✓');showPage('cal');
+    }catch{alert('Fichier invalide.');}event.target.value='';
+  };reader.readAsText(file);
+}
+
+function renderDataInfo(){
+  const th=S.hives.length,tv=Object.keys(S.visits).length;
+  const dates=Object.values(S.visits).map(v=>v.date).sort();
+  const f=dates[0],l=dates[dates.length-1];
+  let info=`${th} ruche${th>1?'s':''} — ${tv} visite${tv>1?'s':''}`;
+  if(f&&l&&f!==l){const[fy,fm,fd]=f.split('-').map(Number);const[ly,lm,ld]=l.split('-').map(Number);info+=`<br>Première visite : ${fd} ${MONTHS[fm-1]} ${fy}<br>Dernière visite : ${ld} ${MONTHS[lm-1]} ${ly}`;}
+  else if(f){const[fy,fm,fd]=f.split('-').map(Number);info+=`<br>Visite le : ${fd} ${MONTHS[fm-1]} ${fy}`;}
+  document.getElementById('data-info').innerHTML=info;
+}
+
+load();renderCalendar();renderHiveList();updateSub();
+</script>
+</body>
+</html>
