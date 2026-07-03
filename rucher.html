@@ -38,6 +38,7 @@ button:active{opacity:0.75}
 button.primary{background:var(--amber);border-color:var(--amber);color:var(--amber-dark);font-weight:500}
 button.danger{background:var(--red-light);border-color:#F09595;color:var(--red-dark)}
 button.ghost{border:none;background:none;padding:6px;min-height:36px}
+button.archive-btn{background:#F1EFE8;border-color:var(--border2);color:#5F5E5A}
 input,select,textarea{font-family:inherit;font-size:14px;padding:10px 12px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--txt);width:100%;min-height:44px}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-offset:1px;border-color:transparent}
 textarea{resize:vertical;min-height:80px}
@@ -60,7 +61,6 @@ label{font-size:12px;color:var(--txt2);display:block;margin-bottom:5px;font-weig
 .page.active{display:block}
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 
-/* Calendrier */
 .cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .cal-nav button{border:none;background:none;padding:8px 12px;font-size:20px;color:var(--txt2);min-height:44px}
 .cal-title{font-weight:500;font-size:16px}
@@ -79,11 +79,12 @@ label{font-size:12px;color:var(--txt2);display:block;margin-bottom:5px;font-weig
 .visit-list{padding:8px}
 .visit-item{display:flex;align-items:center;gap:10px;padding:12px;border-radius:var(--radius);border:0.5px solid var(--border);margin-bottom:6px;cursor:pointer;background:var(--bg);min-height:56px}
 .visit-item:active{background:var(--amber-light);border-color:var(--amber)}
+.visit-item.archived{opacity:0.6;border-style:dashed}
 .visit-hive-badge{background:var(--amber-light);color:var(--amber-dark);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:500;white-space:nowrap}
 .visit-hive-badge.ruchette{background:var(--teal-light);color:#085041}
+.visit-hive-badge.archived-badge{background:var(--gray-light);color:var(--gray);font-style:italic}
 .add-visit-btn{width:100%;border-style:dashed;margin-top:4px;color:var(--txt2);font-size:13px;justify-content:center;min-height:44px}
 
-/* Modals */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;align-items:flex-end;justify-content:center}
 .modal-bg.open{display:flex}
 .modal{background:var(--bg);border-radius:var(--radius-xl) var(--radius-xl) 0 0;width:100%;max-height:92vh;overflow-y:auto;overscroll-behavior:contain}
@@ -93,10 +94,12 @@ label{font-size:12px;color:var(--txt2);display:block;margin-bottom:5px;font-weig
 .modal-body{padding:16px}
 .modal-footer{padding:12px 16px 24px;border-top:0.5px solid var(--border);display:flex;gap:8px;justify-content:flex-end;position:sticky;bottom:0;background:var(--bg)}
 
-/* Fiche visite */
 .fiche-title-bar{background:var(--amber-light);border-radius:var(--radius);padding:12px 14px;margin-bottom:16px;border:0.5px solid var(--amber-mid)}
+.fiche-title-bar.archived{background:var(--gray-light);border-color:var(--border2)}
 .fiche-hive-name{font-size:16px;font-weight:500;color:var(--amber-dark);display:flex;align-items:center;gap:8px}
+.fiche-hive-name.archived{color:var(--txt2)}
 .fiche-hive-meta{font-size:12px;color:#854F0B;margin-top:3px}
+.fiche-hive-meta.archived{color:var(--txt3)}
 .fiche-date-badge{font-size:11px;color:var(--txt2);background:var(--bg);padding:3px 9px;border-radius:20px;border:0.5px solid var(--border);white-space:nowrap}
 .form-row{margin-bottom:14px}
 .toggle-group{display:flex;gap:8px}
@@ -105,38 +108,50 @@ label{font-size:12px;color:var(--txt2);display:block;margin-bottom:5px;font-weig
 .toggle-btn.active-no{background:var(--red-light);border-color:#F09595;color:var(--red-dark);font-weight:500}
 .divider{border:none;border-top:0.5px solid var(--border);margin:16px 0}
 
-/* Sélecteur numérique +/- */
 .num-picker{display:flex;align-items:center;gap:0;border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--bg)}
 .num-picker button{border:none;border-radius:0;min-height:48px;width:52px;font-size:22px;color:var(--amber-dark);background:var(--bg2);flex-shrink:0;justify-content:center;padding:0}
 .num-picker button:active{background:var(--amber-light)}
 .num-picker .num-val{flex:1;text-align:center;font-size:20px;font-weight:500;color:var(--txt);padding:10px 4px;background:var(--bg);min-height:48px;display:flex;align-items:center;justify-content:center;border-left:0.5px solid var(--border);border-right:0.5px solid var(--border)}
 .num-unit{font-size:12px;color:var(--txt2);margin-left:4px;font-weight:400}
 
-/* Force colonie — boutons % */
 .strength-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .str-btn{padding:10px 4px;border-radius:var(--radius);font-size:13px;font-weight:500;border:0.5px solid var(--border);background:var(--bg);color:var(--txt);justify-content:center;min-height:44px;flex-direction:column;gap:2px}
 .str-btn.active{border-color:var(--amber);background:var(--amber-light);color:var(--amber-dark)}
-.str-btn .str-dot{width:8px;height:8px;border-radius:50%;margin:0 auto}
+.str-dot{width:8px;height:8px;border-radius:50%;margin:0 auto}
 
 /* Ruches */
 .hive-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:14px;margin-bottom:10px;background:var(--bg);display:flex;align-items:center;gap:12px}
+.hive-card.archived-card{opacity:0.65;border-style:dashed;background:var(--bg2)}
 .hive-icon-wrap{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 .hive-info{flex:1;min-width:0}
-.hive-actions{display:flex;gap:6px}
+.hive-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .hive-actions button{padding:8px;min-height:40px;width:40px;justify-content:center}
 .empty-state{text-align:center;padding:48px 20px;color:var(--txt2)}
 .empty-state i{font-size:48px;margin-bottom:12px;display:block;color:var(--gray)}
+
+/* Section archives */
+.archive-section-title{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--txt2);margin:16px 0 10px;cursor:pointer;user-select:none}
+.archive-section-title i{font-size:16px;transition:transform 0.2s}
+.archive-section-title.open i.chevron{transform:rotate(180deg)}
 
 .hive-select-list{display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow-y:auto}
 .hive-select-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border:0.5px solid var(--border);border-radius:var(--radius);cursor:pointer;background:var(--bg);min-height:56px}
 .hive-select-item:active{border-color:var(--amber);background:var(--amber-light)}
 
-/* Récap */
+/* Historique ruche archivée */
+.hive-history-list{border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-top:12px}
+.hive-history-item{padding:10px 14px;border-bottom:0.5px solid var(--border);font-size:13px;cursor:pointer;background:var(--bg)}
+.hive-history-item:last-child{border:none}
+.hive-history-item:active{background:var(--bg2)}
+.hive-history-date{font-weight:500;color:var(--txt);margin-bottom:2px}
+.hive-history-details{font-size:11px;color:var(--txt2)}
+
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
 .stat-card{background:var(--bg2);border-radius:var(--radius);padding:14px;text-align:center}
 .stat-val{font-size:26px;font-weight:500}
 .stat-lbl{font-size:11px;color:var(--txt2);margin-top:3px}
 .hive-recap-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);margin-bottom:12px;overflow:hidden}
+.hive-recap-card.archived-recap{opacity:0.7;border-style:dashed}
 .hive-recap-header{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg2);border-bottom:0.5px solid var(--border)}
 .hive-recap-body{padding:10px 14px}
 .hive-recap-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:0.5px solid var(--border)}
@@ -147,8 +162,8 @@ label{font-size:12px;color:var(--txt2);display:block;margin-bottom:5px;font-weig
 .badge-warn{background:var(--amber-light);color:var(--amber-dark)}
 .badge-no{background:var(--gray-light);color:#5F5E5A}
 .badge-danger{background:var(--red-light);color:var(--red-dark)}
+.badge-archive{background:var(--gray-light);color:var(--gray);font-size:10px}
 
-/* Export */
 .export-section{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:14px;background:var(--bg2)}
 .export-section h3{margin-bottom:6px;font-size:14px;display:flex;align-items:center;gap:6px}
 .export-section p{font-size:12px;color:var(--txt2);margin-bottom:12px;line-height:1.6}
@@ -216,6 +231,15 @@ label{font-size:12px;color:var(--txt2);display:block;margin-bottom:5px;font-weig
     <button class="primary" onclick="openHiveModal()"><i class="ti ti-plus"></i> Ajouter</button>
   </div>
   <div id="hive-list"></div>
+  <!-- Ruches archivées -->
+  <div id="archive-section" style="display:none">
+    <div class="archive-section-title" onclick="toggleArchives()" id="archive-toggle">
+      <i class="ti ti-archive"></i>
+      <span id="archive-count-label">Ruches archivées</span>
+      <i class="ti ti-chevron-down chevron" style="margin-left:auto"></i>
+    </div>
+    <div id="archived-hive-list" style="display:none"></div>
+  </div>
 </section>
 
 <!-- PAGE Récap -->
@@ -257,7 +281,7 @@ label{font-size:12px;color:var(--txt2);display:block;margin-bottom:5px;font-weig
       <button class="ghost" onclick="closeModal('visit-modal')"><i class="ti ti-x" style="font-size:20px"></i></button>
     </div>
     <div class="modal-body" id="visit-modal-body"></div>
-    <div class="modal-footer">
+    <div class="modal-footer" id="visit-modal-footer">
       <button id="visit-delete-btn" class="danger" style="display:none" onclick="deleteVisit()"><i class="ti ti-trash"></i></button>
       <button onclick="closeModal('visit-modal')">Annuler</button>
       <button class="primary" onclick="saveVisit()"><i class="ti ti-check"></i> Enregistrer</button>
@@ -310,6 +334,22 @@ label{font-size:12px;color:var(--txt2);display:block;margin-bottom:5px;font-weig
   </div>
 </div>
 
+<!-- MODAL Historique ruche archivée -->
+<div class="modal-bg" id="hive-history-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 id="hive-history-title">Historique</h2>
+      <button class="ghost" onclick="closeModal('hive-history-modal')"><i class="ti ti-x" style="font-size:20px"></i></button>
+    </div>
+    <div class="modal-body" id="hive-history-body"></div>
+    <div class="modal-footer">
+      <button onclick="closeModal('hive-history-modal')">Fermer</button>
+      <button class="primary" onclick="restoreHive()" id="restore-btn"><i class="ti ti-refresh"></i> Réactiver</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -319,21 +359,23 @@ const QCOL={blanche:'#f0f0f0',jaune:'#FFD700',rouge:'#E24B4A',verte:'#639922',bl
 const QBRD={blanche:'#ccc',jaune:'rgba(0,0,0,0.15)',rouge:'rgba(0,0,0,0.15)',verte:'rgba(0,0,0,0.15)',bleue:'rgba(0,0,0,0.15)','non marquée':'#888','pas de reine':'#000'};
 const STRENGTH_LEVELS=[{v:20,lbl:'20%',col:'#E24B4A'},{v:40,lbl:'40%',col:'#F08C3A'},{v:60,lbl:'60%',col:'#EFC830'},{v:80,lbl:'80%',col:'#8DC63F'},{v:100,lbl:'100%',col:'#639922'}];
 
-let S={hives:[],visits:{},month:new Date().getMonth(),year:new Date().getFullYear(),selectedDate:null,editingHiveId:null,editingVisitKey:null,pendingDate:null,pendingHiveId:null};
+let S={hives:[],visits:{},month:new Date().getMonth(),year:new Date().getFullYear(),selectedDate:null,editingHiveId:null,editingVisitKey:null,pendingDate:null,pendingHiveId:null,viewingArchivedHiveId:null};
 
 function load(){try{const d=JSON.parse(localStorage.getItem('rucher_v3')||'{}');S.hives=d.hives||[];S.visits=d.visits||{};}catch(e){}}
 function save(){try{localStorage.setItem('rucher_v3',JSON.stringify({hives:S.hives,visits:S.visits}));}catch(e){}updateSub();}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
 function dk(y,m,d){return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
 function toast(msg,dur=2500){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
-function updateSub(){const n=S.hives.length;document.getElementById('hive-count-sub').textContent=n===0?'Aucune ruche':n===1?'1 ruche':n+' ruches';}
-
-// Récupère la dernière visite d'une ruche avant une date donnée
-function getLastVisit(hiveId, beforeDate){
-  return Object.values(S.visits)
-    .filter(v=>v.hiveId===hiveId && v.date < beforeDate)
-    .sort((a,b)=>b.date.localeCompare(a.date))[0] || null;
+function updateSub(){
+  const active=S.hives.filter(h=>!h.archived).length;
+  const arch=S.hives.filter(h=>h.archived).length;
+  document.getElementById('hive-count-sub').textContent=active===0?'Aucune ruche active':active===1?'1 ruche active':active+' ruches actives'+(arch>0?' · '+arch+' archivée'+(arch>1?'s':''):'');
 }
+function getLastVisit(hiveId,beforeDate){
+  return Object.values(S.visits).filter(v=>v.hiveId===hiveId&&v.date<beforeDate).sort((a,b)=>b.date.localeCompare(a.date))[0]||null;
+}
+function activeHives(){return S.hives.filter(h=>!h.archived);}
+function archivedHives(){return S.hives.filter(h=>h.archived);}
 
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -354,8 +396,7 @@ function changeMonth(d){S.month+=d;if(S.month>11){S.month=0;S.year++;}if(S.month
 function renderCalendar(){
   const{month:m,year:y}=S;
   document.getElementById('cal-month-label').textContent=MONTHS[m]+' '+y;
-  const grid=document.getElementById('cal-grid');
-  grid.innerHTML='';
+  const grid=document.getElementById('cal-grid');grid.innerHTML='';
   DAYS.forEach(d=>{const el=document.createElement('div');el.className='cal-day-header';el.textContent=d;grid.appendChild(el);});
   const first=new Date(y,m,1);let sd=first.getDay();sd=sd===0?6:sd-1;
   const dim=new Date(y,m+1,0).getDate();const pd=new Date(y,m,0).getDate();
@@ -383,213 +424,147 @@ function renderDayPanel(dkey){
   const list=document.getElementById('visit-list');list.innerHTML='';
   Object.entries(S.visits).filter(([,v])=>v.date===dkey).forEach(([vk,v])=>{
     const h=S.hives.find(h=>h.id===v.hiveId);if(!h)return;
-    const item=document.createElement('div');item.className='visit-item';
-    item.innerHTML=`<span class="qdot" style="background:${QCOL[h.queenColor]||'#aaa'};border:1.5px solid ${QBRD[h.queenColor]||'#888'}"></span>
-      <div style="flex:1;min-width:0"><div style="font-weight:500;font-size:14px">${h.name}</div><div style="font-size:11px;color:var(--txt2)">${h.type} — ${h.queenLine||'lignée ?'}</div></div>
-      <span class="visit-hive-badge ${h.type==='ruchette'?'ruchette':''}">${h.type==='ruchette'?'Ruchette':'Ruche'}</span>`;
-    item.onclick=()=>openVisitModal(vk,dkey);list.appendChild(item);
+    const isArch=!!h.archived;
+    const col=QCOL[h.queenColor]||'#aaa';const brd=QBRD[h.queenColor]||'#888';
+    const item=document.createElement('div');
+    item.className='visit-item'+(isArch?' archived':'');
+    item.innerHTML=`<span class="qdot" style="background:${col};border:1.5px solid ${brd}"></span>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:500;font-size:14px">${h.name}${isArch?' <span style="font-size:10px;color:var(--txt3)">(archivée)</span>':''}</div>
+        <div style="font-size:11px;color:var(--txt2)">${h.type} — ${h.queenLine||'lignée ?'}</div>
+      </div>
+      <span class="visit-hive-badge ${isArch?'archived-badge':h.type==='ruchette'?'ruchette':''}">${isArch?'Archivée':h.type==='ruchette'?'Ruchette':'Ruche'}</span>`;
+    item.onclick=()=>openVisitModal(vk,dkey,null,isArch);
+    list.appendChild(item);
   });
-  const btn=document.createElement('button');btn.className='add-visit-btn';
-  btn.innerHTML='<i class="ti ti-plus"></i> Nouvelle visite';
-  btn.onclick=()=>openHivePicker(dkey);list.appendChild(btn);
+  // Bouton nouvelle visite uniquement si ruches actives
+  if(activeHives().length>0){
+    const btn=document.createElement('button');btn.className='add-visit-btn';
+    btn.innerHTML='<i class="ti ti-plus"></i> Nouvelle visite';
+    btn.onclick=()=>openHivePicker(dkey);list.appendChild(btn);
+  }
 }
 
 /* ===== CHOIX RUCHE ===== */
 function openHivePicker(dkey){
   S.pendingDate=dkey;const list=document.getElementById('hive-select-list');list.innerHTML='';
-  if(!S.hives.length){list.innerHTML='<p style="color:var(--txt2);font-size:13px;padding:8px">Aucune ruche. Allez d\'abord dans l\'onglet Ruches.</p>';return;}
-  S.hives.forEach(h=>{
+  const active=activeHives();
+  if(!active.length){list.innerHTML='<p style="color:var(--txt2);font-size:13px;padding:8px">Aucune ruche active.</p>';return;}
+  active.forEach(h=>{
     const item=document.createElement('div');item.className='hive-select-item';
     item.innerHTML=`<span class="qdot" style="background:${QCOL[h.queenColor]||'#aaa'};border:1.5px solid ${QBRD[h.queenColor]||'#888'};width:14px;height:14px"></span>
       <div><div style="font-weight:500;font-size:14px">${h.name}</div><div style="font-size:12px;color:var(--txt2)">${h.type} — ${h.queenLine||'lignée ?'}</div></div>`;
-    item.onclick=()=>{closeModal('hive-pick-modal');openVisitModal(null,dkey,h.id);};list.appendChild(item);
+    item.onclick=()=>{closeModal('hive-pick-modal');openVisitModal(null,dkey,h.id,false);};list.appendChild(item);
   });
   openModal('hive-pick-modal');
 }
 
 /* ===== FICHE DE VISITE ===== */
-function numPicker(id, min, max, val, unit=''){
+function numPicker(id,min,max,val,unit=''){
   return `<div class="num-picker">
     <button type="button" onclick="changeNum('${id}',${min},${max},-1)">−</button>
     <div class="num-val" id="${id}-val">${val}${unit?'<span class="num-unit">'+unit+'</span>':''}</div>
     <button type="button" onclick="changeNum('${id}',${min},${max},1)">+</button>
   </div>`;
 }
-
-function changeNum(id, min, max, delta){
-  const current = window.CF['_num_'+id];
-  const next = Math.max(min, Math.min(max, current + delta));
-  window.CF['_num_'+id] = next;
-  const el = document.getElementById(id+'-val');
-  const unit = el.querySelector('.num-unit');
-  el.childNodes[0].textContent = next;
-  // Sync dans CF
-  if(id==='frames-occ') window.CF.framesOccupied=next;
-  if(id==='wax-frames') window.CF.waxFrames=next;
-  if(id==='num-supers') window.CF.supers=next;
+function changeNum(id,min,max,delta){
+  const next=Math.max(min,Math.min(max,(window.CF['_num_'+id]||0)+delta));
+  window.CF['_num_'+id]=next;
+  const el=document.getElementById(id+'-val');
+  const unit=el.querySelector('.num-unit');
+  if(unit){el.childNodes[0].textContent=next;}else{el.textContent=next;}
+  if(id==='frames-occ')window.CF.framesOccupied=next;
+  if(id==='wax-frames')window.CF.waxFrames=next;
+  if(id==='num-supers')window.CF.supers=next;
 }
-
 function setStrength(val){
   window.CF.colonyStrength=val;
-  document.querySelectorAll('.str-btn').forEach(b=>{
-    b.classList.toggle('active', parseInt(b.dataset.val)===val);
-  });
+  document.querySelectorAll('.str-btn').forEach(b=>b.classList.toggle('active',parseInt(b.dataset.val)===val));
 }
 
-function openVisitModal(visitKey, dkey, hiveId){
+function openVisitModal(visitKey,dkey,hiveId,readOnly=false){
   S.editingVisitKey=visitKey;S.pendingDate=dkey;S.pendingHiveId=hiveId;
   const visit=visitKey?S.visits[visitKey]:null;
   const hive=visit?S.hives.find(h=>h.id===visit.hiveId):S.hives.find(h=>h.id===hiveId);
   if(!hive)return;
-  document.getElementById('visit-modal-title').textContent=visit?'Modifier la visite':'Nouvelle visite';
-  document.getElementById('visit-delete-btn').style.display=visit?'inline-flex':'none';
+  const isArchived=!!hive.archived||readOnly;
+  document.getElementById('visit-modal-title').textContent=isArchived?'Visite (archivée)':visit?'Modifier la visite':'Nouvelle visite';
+  document.getElementById('visit-delete-btn').style.display=(visit&&!isArchived)?'inline-flex':'none';
+  // Masquer le bouton Enregistrer pour les ruches archivées
+  const footer=document.getElementById('visit-modal-footer');
+  footer.querySelector('.primary').style.display=isArchived?'none':'inline-flex';
   const[y,m,d]=dkey.split('-').map(Number);
   const ds=`${d} ${MONTHS[m-1]} ${y}`;
   const col=QCOL[hive.queenColor]||'#aaa';const brd=QBRD[hive.queenColor]||'#888';
-
-  // Valeurs par défaut : visite en cours ou dernière visite connue ou zéro
-  let prev = null;
-  if(!visit) prev = getLastVisit(hive.id, dkey);
-  const src = visit || prev || {};
+  let prev=null;if(!visit)prev=getLastVisit(hive.id,dkey);
+  const src=visit||prev||{};
   const v={
-    queenSeen: src.queenSeen !== undefined ? src.queenSeen : null,
-    framesOccupied: src.framesOccupied !== undefined ? src.framesOccupied : 5,
-    waxFrames: 0, // toujours remis à 0 (ajout du jour)
-    colonyStrength: src.colonyStrength !== undefined ? src.colonyStrength : 60,
-    royalCells: src.royalCells !== undefined ? src.royalCells : null,
-    broodPresent: src.broodPresent !== undefined ? src.broodPresent : null,
-    supers: src.supers !== undefined ? src.supers : 0,
-    comments: visit ? (visit.comments||'') : '',
-    queenColor: visit ? (visit.queenColor || hive.queenColor) : hive.queenColor
+    queenSeen:src.queenSeen!==undefined?src.queenSeen:null,
+    framesOccupied:src.framesOccupied!==undefined?src.framesOccupied:5,
+    waxFrames:visit?src.waxFrames:0,
+    colonyStrength:src.colonyStrength!==undefined?src.colonyStrength:60,
+    royalCells:src.royalCells!==undefined?src.royalCells:null,
+    broodPresent:src.broodPresent!==undefined?src.broodPresent:null,
+    supers:src.supers!==undefined?src.supers:0,
+    comments:visit?(visit.comments||')':'',
+    queenColor:visit?(visit.queenColor||hive.queenColor):hive.queenColor
   };
-
-  // Construit les boutons force colonie
-  const strBtns = STRENGTH_LEVELS.map(l=>
-    `<button type="button" class="str-btn${v.colonyStrength===l.v?' active':''}" data-val="${l.v}" onclick="setStrength(${l.v})">
-      <div class="str-dot" style="background:${l.col}"></div>${l.lbl}
-    </button>`
-  ).join('');
-
-  // Options couleur reine pour la fiche
-  const queenOpts = ['blanche','jaune','rouge','verte','bleue','non marquée','pas de reine'].map(c=>
-    `<option value="${c}" ${v.queenColor===c?'selected':''}>${c.charAt(0).toUpperCase()+c.slice(1)}</option>`
-  ).join('');
-
+  const strBtns=STRENGTH_LEVELS.map(l=>`<button type="button" class="str-btn${v.colonyStrength===l.v?' active':''}" data-val="${l.v}" onclick="${isArchived?'':' setStrength('+l.v+')'}"><div class="str-dot" style="background:${l.col}"></div>${l.lbl}</button>`).join('');
+  const queenOpts=['blanche','jaune','rouge','verte','bleue','non marquée','pas de reine'].map(c=>`<option value="${c}" ${v.queenColor===c?'selected':''}>${c.charAt(0).toUpperCase()+c.slice(1)}</option>`).join('');
+  const ro=isArchived?'disabled':'' ;
   document.getElementById('visit-modal-body').innerHTML=`
-    <div class="fiche-title-bar">
+    <div class="fiche-title-bar${isArchived?' archived':''}">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
         <div>
-          <div class="fiche-hive-name"><span class="qdot" id="queen-dot-preview" style="background:${QCOL[v.queenColor]||'#aaa'};border:1.5px solid ${QBRD[v.queenColor]||'#888'};width:12px;height:12px"></span>${hive.name}</div>
-          <div class="fiche-hive-meta">${hive.type} — ${hive.queenLine||'lignée ?'}</div>
+          <div class="fiche-hive-name${isArchived?' archived':''}"><span class="qdot" id="queen-dot-preview" style="background:${QCOL[v.queenColor]||'#aaa'};border:1.5px solid ${QBRD[v.queenColor]||'#888'};width:12px;height:12px"></span>${hive.name}${isArchived?' <span class="badge badge-archive"><i class="ti ti-archive" style="font-size:10px"></i> Archivée</span>':''}</div>
+          <div class="fiche-hive-meta${isArchived?' archived':''}">${hive.type} — ${hive.queenLine||'lignée ?'}</div>
         </div>
         <span class="fiche-date-badge">${ds}</span>
       </div>
     </div>
-
-    ${prev && !visit ? `<div style="background:var(--teal-light);border:0.5px solid #8ECFBE;border-radius:var(--radius);padding:8px 12px;margin-bottom:14px;font-size:12px;color:#085041"><i class="ti ti-history" style="font-size:13px;vertical-align:-2px"></i> Valeurs pré-remplies depuis la visite du ${(()=>{const[py,pm,pd]=prev.date.split('-').map(Number);return pd+' '+MONTHS[pm-1]+' '+py;})()} </div>` : ''}
-
-    <div class="form-row">
-      <label>Couleur de la reine</label>
-      <select id="visit-queen-color" onchange="updateQueenDot(this.value)">${queenOpts}</select>
-    </div>
+    ${prev&&!visit?`<div style="background:var(--teal-light);border:0.5px solid #8ECFBE;border-radius:var(--radius);padding:8px 12px;margin-bottom:14px;font-size:12px;color:#085041"><i class="ti ti-history" style="font-size:13px;vertical-align:-2px"></i> Pré-rempli depuis le ${(()=>{const[py,pm,pd]=prev.date.split('-').map(Number);return pd+' '+MONTHS[pm-1]+' '+py;})()}</div>`:''}
+    <div class="form-row"><label>Couleur de la reine</label><select id="visit-queen-color" onchange="${isArchived?'':'updateQueenDot(this.value)'}" ${ro}>${queenOpts}</select></div>
     <div class="divider"></div>
-
-    <div class="form-row">
-      <label>Reine vue ?</label>
+    <div class="form-row"><label>Reine vue ?</label>
       <div class="toggle-group">
-        <button type="button" class="toggle-btn ${v.queenSeen===true?'active-yes':''}" id="q-yes" onclick="setT('queenSeen',true,'q-yes','q-no')"><i class="ti ti-check"></i> Oui</button>
-        <button type="button" class="toggle-btn ${v.queenSeen===false?'active-no':''}" id="q-no" onclick="setT('queenSeen',false,'q-yes','q-no')"><i class="ti ti-x"></i> Non</button>
+        <button type="button" class="toggle-btn ${v.queenSeen===true?'active-yes':''}" id="q-yes" onclick="${isArchived?'':'setT(\'queenSeen\',true,\'q-yes\',\'q-no\')'}" ${ro}><i class="ti ti-check"></i> Oui</button>
+        <button type="button" class="toggle-btn ${v.queenSeen===false?'active-no':''}" id="q-no" onclick="${isArchived?'':'setT(\'queenSeen\',false,\'q-yes\',\'q-no\')'}" ${ro}><i class="ti ti-x"></i> Non</button>
       </div>
     </div>
     <div class="divider"></div>
-
-    <div class="form-row">
-      <label>Cadres occupés</label>
-      ${numPicker('frames-occ', 0, 20, v.framesOccupied, ' / 20')}
-    </div>
-
-    <div class="form-row">
-      <label>Cadres de cire gaufrée ajoutés</label>
-      ${numPicker('wax-frames', 0, 10, v.waxFrames)}
-    </div>
-
-    <div class="form-row">
-      <label>Force de la colonie</label>
-      <div class="strength-grid">${strBtns}</div>
-    </div>
+    <div class="form-row"><label>Cadres occupés</label>${isArchived?`<div style="font-size:20px;font-weight:500;padding:8px 0">${v.framesOccupied} <span style="font-size:13px;color:var(--txt2)">/ 20</span></div>`:numPicker('frames-occ',0,20,v.framesOccupied,' / 20')}</div>
+    <div class="form-row"><label>Cadres de cire gaufrée ajoutés</label>${isArchived?`<div style="font-size:20px;font-weight:500;padding:8px 0">${v.waxFrames}</div>`:numPicker('wax-frames',0,10,v.waxFrames)}</div>
+    <div class="form-row"><label>Force de la colonie</label><div class="strength-grid">${strBtns}</div></div>
     <div class="divider"></div>
-
-    <div class="form-row">
-      <label>Cellules royales présentes ?</label>
+    <div class="form-row"><label>Cellules royales présentes ?</label>
       <div class="toggle-group">
-        <button type="button" class="toggle-btn ${v.royalCells===true?'active-yes':''}" id="rc-yes" onclick="setT('royalCells',true,'rc-yes','rc-no')"><i class="ti ti-check"></i> Oui</button>
-        <button type="button" class="toggle-btn ${v.royalCells===false?'active-no':''}" id="rc-no" onclick="setT('royalCells',false,'rc-yes','rc-no')"><i class="ti ti-x"></i> Non</button>
+        <button type="button" class="toggle-btn ${v.royalCells===true?'active-yes':''}" id="rc-yes" onclick="${isArchived?'':'setT(\'royalCells\',true,\'rc-yes\',\'rc-no\')'}" ${ro}><i class="ti ti-check"></i> Oui</button>
+        <button type="button" class="toggle-btn ${v.royalCells===false?'active-no':''}" id="rc-no" onclick="${isArchived?'':'setT(\'royalCells\',false,\'rc-yes\',\'rc-no\')'}" ${ro}><i class="ti ti-x"></i> Non</button>
       </div>
     </div>
-
-    <div class="form-row">
-      <label>Couvain présent ?</label>
+    <div class="form-row"><label>Couvain présent ?</label>
       <div class="toggle-group">
-        <button type="button" class="toggle-btn ${v.broodPresent===true?'active-yes':''}" id="bp-yes" onclick="setT('broodPresent',true,'bp-yes','bp-no')"><i class="ti ti-check"></i> Oui</button>
-        <button type="button" class="toggle-btn ${v.broodPresent===false?'active-no':''}" id="bp-no" onclick="setT('broodPresent',false,'bp-yes','bp-no')"><i class="ti ti-x"></i> Non</button>
+        <button type="button" class="toggle-btn ${v.broodPresent===true?'active-yes':''}" id="bp-yes" onclick="${isArchived?'':'setT(\'broodPresent\',true,\'bp-yes\',\'bp-no\')'}" ${ro}><i class="ti ti-check"></i> Oui</button>
+        <button type="button" class="toggle-btn ${v.broodPresent===false?'active-no':''}" id="bp-no" onclick="${isArchived?'':'setT(\'broodPresent\',false,\'bp-yes\',\'bp-no\')'}" ${ro}><i class="ti ti-x"></i> Non</button>
       </div>
     </div>
-
-    <div class="form-row">
-      <label>Nombre de hausses</label>
-      ${numPicker('num-supers', 0, 5, v.supers)}
-    </div>
+    <div class="form-row"><label>Nombre de hausses</label>${isArchived?`<div style="font-size:20px;font-weight:500;padding:8px 0">${v.supers}</div>`:numPicker('num-supers',0,5,v.supers)}</div>
     <div class="divider"></div>
-
-    <div class="form-row">
-      <label for="comments">Commentaires libres</label>
-      <textarea id="comments" placeholder="Observations, comportement, traitements…">${v.comments}</textarea>
-    </div>`;
-
-  // Initialise CF
-  window.CF={
-    queenSeen:v.queenSeen,framesOccupied:v.framesOccupied,waxFrames:v.waxFrames,
-    colonyStrength:v.colonyStrength,royalCells:v.royalCells,broodPresent:v.broodPresent,
-    supers:v.supers,
-    '_num_frames-occ':v.framesOccupied,
-    '_num_wax-frames':v.waxFrames,
-    '_num_num-supers':v.supers
-  };
+    <div class="form-row"><label for="comments">Commentaires libres</label><textarea id="comments" placeholder="Observations…" ${ro}>${v.comments}</textarea></div>`;
+  window.CF={queenSeen:v.queenSeen,framesOccupied:v.framesOccupied,waxFrames:v.waxFrames,colonyStrength:v.colonyStrength,royalCells:v.royalCells,broodPresent:v.broodPresent,supers:v.supers,'_num_frames-occ':v.framesOccupied,'_num_wax-frames':v.waxFrames,'_num_num-supers':v.supers};
   openModal('visit-modal');
 }
 
-function updateQueenDot(val){
-  const dot=document.getElementById('queen-dot-preview');
-  if(dot){dot.style.background=QCOL[val]||'#aaa';dot.style.border='1.5px solid '+(QBRD[val]||'#888');}
-}
-
-function setT(field,val,yId,nId){
-  window.CF[field]=val;
-  document.getElementById(yId).className='toggle-btn'+(val===true?' active-yes':'');
-  document.getElementById(nId).className='toggle-btn'+(val===false?' active-no':'');
-}
+function updateQueenDot(val){const dot=document.getElementById('queen-dot-preview');if(dot){dot.style.background=QCOL[val]||'#aaa';dot.style.border='1.5px solid '+(QBRD[val]||'#888');}}
+function setT(field,val,yId,nId){window.CF[field]=val;document.getElementById(yId).className='toggle-btn'+(val===true?' active-yes':'');document.getElementById(nId).className='toggle-btn'+(val===false?' active-no':'');}
 
 function saveVisit(){
   const hiveId=S.editingVisitKey?S.visits[S.editingVisitKey].hiveId:S.pendingHiveId;
   const newQueenColor=document.getElementById('visit-queen-color').value;
   const key=S.editingVisitKey||uid();
-  S.visits[key]={
-    hiveId,date:S.pendingDate,
-    queenSeen:window.CF.queenSeen,
-    framesOccupied:window.CF.framesOccupied,
-    waxFrames:window.CF.waxFrames,
-    colonyStrength:window.CF.colonyStrength,
-    royalCells:window.CF.royalCells,
-    broodPresent:window.CF.broodPresent,
-    supers:window.CF.supers,
-    queenColor:newQueenColor,
-    comments:document.getElementById('comments').value
-  };
-  // Met à jour la couleur de la reine dans la fiche ruche si elle a changé
+  S.visits[key]={hiveId,date:S.pendingDate,queenSeen:window.CF.queenSeen,framesOccupied:window.CF.framesOccupied,waxFrames:window.CF.waxFrames,colonyStrength:window.CF.colonyStrength,royalCells:window.CF.royalCells,broodPresent:window.CF.broodPresent,supers:window.CF.supers,queenColor:newQueenColor,comments:document.getElementById('comments').value};
   const hive=S.hives.find(h=>h.id===hiveId);
-  if(hive && hive.queenColor!==newQueenColor){
-    hive.queenColor=newQueenColor;
-  }
+  if(hive&&hive.queenColor!==newQueenColor)hive.queenColor=newQueenColor;
   save();closeModal('visit-modal');renderCalendar();if(S.selectedDate)renderDayPanel(S.selectedDate);toast('Visite enregistrée ✓');
 }
 
@@ -615,40 +590,123 @@ function saveHive(){
   const name=document.getElementById('hive-name').value.trim();
   if(!name){alert('Veuillez saisir un nom.');return;}
   const data={id:S.editingHiveId||uid(),name,type:document.getElementById('hive-type').value,queenColor:document.getElementById('hive-queen-color').value,queenLine:document.getElementById('hive-queen-line').value.trim()};
-  if(S.editingHiveId){const i=S.hives.findIndex(h=>h.id===S.editingHiveId);if(i>=0)S.hives[i]=data;}
+  if(S.editingHiveId){const i=S.hives.findIndex(h=>h.id===S.editingHiveId);if(i>=0){data.archived=S.hives[i].archived;S.hives[i]=data;}}
   else S.hives.push(data);
   save();closeModal('hive-modal');renderHiveList();toast(S.editingHiveId?'Ruche modifiée ✓':'Ruche ajoutée ✓');
 }
 
-function deleteHive(hiveId){
+function archiveHive(hiveId){
   const h=S.hives.find(h=>h.id===hiveId);if(!h)return;
-  if(!confirm(`Supprimer "${h.name}" et toutes ses visites ?`))return;
+  if(!confirm(`Archiver "${h.name}" ?\n\nLa ruche et tout son historique de visites seront conservés et consultables dans la section Archives.`))return;
+  h.archived=true;h.archivedDate=new Date().toISOString().slice(0,10);
+  save();renderHiveList();renderCalendar();toast(`"${h.name}" archivée — historique conservé`);
+}
+
+function restoreHive(){
+  const h=S.hives.find(h=>h.id===S.viewingArchivedHiveId);if(!h)return;
+  delete h.archived;delete h.archivedDate;
+  save();closeModal('hive-history-modal');renderHiveList();toast(`"${h.name}" réactivée ✓`);
+}
+
+function permanentDeleteHive(hiveId){
+  const h=S.hives.find(h=>h.id===hiveId);if(!h)return;
+  if(!confirm(`⚠️ SUPPRESSION DÉFINITIVE\n\n"${h.name}" et TOUTES ses visites seront effacées définitivement.\nCette action est irréversible.\n\nConfirmer ?`))return;
   S.hives=S.hives.filter(h=>h.id!==hiveId);
   Object.keys(S.visits).forEach(k=>{if(S.visits[k].hiveId===hiveId)delete S.visits[k];});
-  save();renderHiveList();renderCalendar();toast('Ruche supprimée');
+  save();closeModal('hive-history-modal');renderHiveList();renderCalendar();toast('Ruche supprimée définitivement');
+}
+
+function openHiveHistory(hiveId){
+  S.viewingArchivedHiveId=hiveId;
+  const h=S.hives.find(h=>h.id===hiveId);if(!h)return;
+  document.getElementById('hive-history-title').textContent=h.name+' — Historique';
+  const col=QCOL[h.queenColor]||'#aaa';const brd=QBRD[h.queenColor]||'#888';
+  const hv=Object.values(S.visits).filter(v=>v.hiveId===hiveId).sort((a,b)=>b.date.localeCompare(a.date));
+  const body=document.getElementById('hive-history-body');
+  body.innerHTML=`
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:10px 14px;background:var(--gray-light);border-radius:var(--radius);border:0.5px solid var(--border2)">
+      <span class="qdot" style="background:${col};border:1.5px solid ${brd};width:14px;height:14px"></span>
+      <div><div style="font-weight:500">${h.name} <span style="font-size:11px;color:var(--txt2)">(${h.type})</span></div>
+      <div style="font-size:12px;color:var(--txt2)">${h.queenLine||'lignée ?'} — Archivée le ${h.archivedDate||'?'}</div></div>
+    </div>
+    <div style="font-size:12px;color:var(--txt2);margin-bottom:8px">${hv.length} visite${hv.length>1?'s':''} enregistrée${hv.length>1?'s':''}</div>`;
+  if(!hv.length){
+    body.innerHTML+='<p style="font-size:13px;color:var(--txt2);font-style:italic">Aucune visite enregistrée pour cette ruche.</p>';
+  } else {
+    const list=document.createElement('div');list.className='hive-history-list';
+    hv.forEach(v=>{
+      const[vy,vm,vd]=v.date.split('-').map(Number);
+      const item=document.createElement('div');item.className='hive-history-item';
+      const vc=QCOL[v.queenColor||h.queenColor]||col;
+      item.innerHTML=`<div class="hive-history-date">${vd} ${MONTHS[vm-1]} ${vy}</div>
+        <div class="hive-history-details">
+          Reine : ${v.queenSeen===true?'✓ vue':v.queenSeen===false?'✗ non vue':'?'} · 
+          Cadres : ${v.framesOccupied}/20 · 
+          Force : ${v.colonyStrength}% · 
+          Hausses : ${v.supers}
+          ${v.comments?'<br><span style="font-style:italic">'+v.comments.slice(0,60)+(v.comments.length>60?'…':'')+'</span>':''}
+        </div>`;
+      item.onclick=()=>{ closeModal('hive-history-modal'); setTimeout(()=>{ S.selectedDate=v.date; const[iy,im]=v.date.split('-').map(Number); S.month=im-1; S.year=iy; showPage('cal'); renderDayPanel(v.date); },300); };
+      list.appendChild(item);
+    });
+    body.appendChild(list);
+  }
+  // Bouton suppression définitive
+  body.innerHTML+=`<div style="margin-top:20px;padding-top:14px;border-top:0.5px solid var(--border)">
+    <p style="font-size:12px;color:var(--txt2);margin-bottom:10px">Si vous souhaitez supprimer définitivement cette ruche et tout son historique :</p>
+    <button class="danger" onclick="permanentDeleteHive('${hiveId}')" style="width:100%;justify-content:center"><i class="ti ti-trash"></i> Supprimer définitivement</button>
+  </div>`;
+  openModal('hive-history-modal');
+}
+
+function toggleArchives(){
+  const list=document.getElementById('archived-hive-list');
+  const toggle=document.getElementById('archive-toggle');
+  const isOpen=list.style.display!=='none';
+  list.style.display=isOpen?'none':'block';
+  toggle.classList.toggle('open',!isOpen);
 }
 
 function renderHiveList(){
-  const list=document.getElementById('hive-list');
-  if(!S.hives.length){list.innerHTML='<div class="empty-state"><i class="ti ti-bee"></i><p style="margin-top:8px">Aucune ruche pour l\'instant.<br>Appuyez sur Ajouter pour commencer.</p></div>';return;}
-  list.innerHTML='';
-  S.hives.forEach(h=>{
-    const col=QCOL[h.queenColor]||'#aaa';const brd=QBRD[h.queenColor]||'#888';
-    const vc=Object.values(S.visits).filter(v=>v.hiveId===h.id).length;
-    const card=document.createElement('div');card.className='hive-card';
-    card.innerHTML=`
-      <div class="hive-icon-wrap" style="background:${col}22;border:2px solid ${col}"><i class="ti ti-home" style="color:${col==='#f0f0f0'?'#888':col}"></i></div>
-      <div class="hive-info">
-        <div style="font-weight:500;font-size:15px">${h.name} <span style="font-size:11px;color:var(--txt2);font-weight:400">(${h.type})</span></div>
-        <div style="font-size:12px;color:var(--txt2);margin-top:2px">Reine <span class="qdot" style="background:${col};border:1.5px solid ${brd}"></span> ${h.queenColor} — ${h.queenLine||'lignée ?'}</div>
-        <div style="font-size:11px;color:var(--txt3);margin-top:3px">${vc} visite${vc>1?'s':''} enregistrée${vc>1?'s':''}</div>
-      </div>
-      <div class="hive-actions">
-        <button onclick="openHiveModal('${h.id}')" aria-label="Modifier ${h.name}"><i class="ti ti-edit"></i></button>
-        <button class="danger" onclick="deleteHive('${h.id}')" aria-label="Supprimer ${h.name}"><i class="ti ti-trash"></i></button>
-      </div>`;
-    list.appendChild(card);
-  });
+  const activeList=document.getElementById('hive-list');
+  const archList=document.getElementById('archived-hive-list');
+  const archSection=document.getElementById('archive-section');
+  activeList.innerHTML='';archList.innerHTML='';
+  const active=activeHives();const archived=archivedHives();
+  if(!active.length){
+    activeList.innerHTML='<div class="empty-state"><i class="ti ti-bee"></i><p style="margin-top:8px">Aucune ruche active.<br>Appuyez sur Ajouter pour commencer.</p></div>';
+  } else {
+    active.forEach(h=>activeList.appendChild(makeHiveCard(h,false)));
+  }
+  if(archived.length){
+    archSection.style.display='block';
+    document.getElementById('archive-count-label').textContent=`Ruches archivées (${archived.length})`;
+    archived.forEach(h=>archList.appendChild(makeHiveCard(h,true)));
+  } else {
+    archSection.style.display='none';
+  }
+}
+
+function makeHiveCard(h,isArchived){
+  const col=QCOL[h.queenColor]||'#aaa';const brd=QBRD[h.queenColor]||'#888';
+  const vc=Object.values(S.visits).filter(v=>v.hiveId===h.id).length;
+  const card=document.createElement('div');card.className='hive-card'+(isArchived?' archived-card':'');
+  const iconColor=col==='#f0f0f0'?'#888':col;
+  card.innerHTML=`
+    <div class="hive-icon-wrap" style="background:${col}22;border:2px solid ${col}"><i class="ti ti-home" style="color:${iconColor}"></i></div>
+    <div class="hive-info">
+      <div style="font-weight:500;font-size:15px">${h.name} <span style="font-size:11px;color:var(--txt2);font-weight:400">(${h.type})</span></div>
+      <div style="font-size:12px;color:var(--txt2);margin-top:2px">Reine <span class="qdot" style="background:${col};border:1.5px solid ${brd}"></span> ${h.queenColor} — ${h.queenLine||'lignée ?'}</div>
+      <div style="font-size:11px;color:var(--txt3);margin-top:3px">${vc} visite${vc>1?'s':''} · ${isArchived?'Archivée le '+(h.archivedDate||'?'):'Active'}</div>
+    </div>
+    <div class="hive-actions">
+      ${isArchived
+        ? `<button onclick="openHiveHistory('${h.id}')" title="Voir l'historique" aria-label="Historique ${h.name}" style="width:auto;padding:8px 12px;font-size:12px"><i class="ti ti-history"></i></button>`
+        : `<button onclick="openHiveModal('${h.id}')" aria-label="Modifier ${h.name}"><i class="ti ti-edit"></i></button>
+           <button class="archive-btn" onclick="archiveHive('${h.id}')" title="Archiver" aria-label="Archiver ${h.name}"><i class="ti ti-archive"></i></button>`
+      }
+    </div>`;
+  return card;
 }
 
 /* ===== RÉCAP ===== */
@@ -657,35 +715,36 @@ function renderRecap(){
   const allV=Object.values(S.visits);const tot=allV.length;
   const avgS=tot?Math.round(allV.reduce((s,v)=>s+v.colonyStrength,0)/tot):0;
   const wRC=allV.filter(v=>v.royalCells===true).length;
+  const activeCount=activeHives().length;const archCount=archivedHives().length;
   el.innerHTML=`<div class="stats-grid">
-    <div class="stat-card"><div class="stat-val">${S.hives.length}</div><div class="stat-lbl">Ruches / ruchettes</div></div>
+    <div class="stat-card"><div class="stat-val">${activeCount}</div><div class="stat-lbl">Ruches actives</div></div>
     <div class="stat-card"><div class="stat-val">${tot}</div><div class="stat-lbl">Visites totales</div></div>
     <div class="stat-card"><div class="stat-val">${avgS}%</div><div class="stat-lbl">Force moyenne</div></div>
     <div class="stat-card"><div class="stat-val" style="color:${wRC>0?'var(--red)':'inherit'}">${wRC}</div><div class="stat-lbl">Visites avec c. royales</div></div>
   </div>`;
-  if(!S.hives.length){el.innerHTML+='<p style="color:var(--txt2);font-size:13px">Aucune ruche configurée.</p>';return;}
-  S.hives.forEach(h=>{
+  // Ruches actives d'abord, puis archivées
+  const all=[...activeHives(),...archivedHives()];
+  if(!all.length){el.innerHTML+='<p style="color:var(--txt2);font-size:13px">Aucune ruche configurée.</p>';return;}
+  all.forEach(h=>{
     const col=QCOL[h.queenColor]||'#aaa';const brd=QBRD[h.queenColor]||'#888';
     const hv=allV.filter(v=>v.hiveId===h.id).sort((a,b)=>b.date.localeCompare(a.date));
-    const last=hv[0];const card=document.createElement('div');card.className='hive-recap-card';
+    const last=hv[0];const card=document.createElement('div');
+    card.className='hive-recap-card'+(h.archived?' archived-recap':'');
     if(!last){
-      card.innerHTML=`<div class="hive-recap-header"><div style="display:flex;align-items:center;gap:8px"><span class="qdot" style="background:${col};border:1.5px solid ${brd}"></span><span style="font-weight:500">${h.name}</span><span style="font-size:11px;color:var(--txt2)">${h.type}</span></div></div><div class="hive-recap-body"><p style="font-size:12px;color:var(--txt2);font-style:italic">Aucune visite enregistrée</p></div>`;
+      card.innerHTML=`<div class="hive-recap-header"><div style="display:flex;align-items:center;gap:8px"><span class="qdot" style="background:${col};border:1.5px solid ${brd}"></span><span style="font-weight:500">${h.name}</span>${h.archived?'<span class="badge badge-archive"><i class="ti ti-archive" style="font-size:10px"></i> Archivée</span>':''}</div></div><div class="hive-recap-body"><p style="font-size:12px;color:var(--txt2);font-style:italic">Aucune visite enregistrée</p></div>`;
     } else {
       const[y,m,d]=last.date.split('-').map(Number);const ds=`${d} ${MONTHS[m-1]} ${y}`;
-      // Couleur reine de la dernière visite
-      const lastCol=QCOL[last.queenColor||h.queenColor]||col;
-      const lastBrd=QBRD[last.queenColor||h.queenColor]||brd;
+      const lastCol=QCOL[last.queenColor||h.queenColor]||col;const lastBrd=QBRD[last.queenColor||h.queenColor]||brd;
       const yn=(v,wno)=>v===true?'<span class="badge badge-ok"><i class="ti ti-check" style="font-size:11px"></i> Oui</span>':v===false?(wno?'<span class="badge badge-warn"><i class="ti ti-alert-triangle" style="font-size:11px"></i> Non</span>':'<span class="badge badge-no">Non</span>'):'<span class="badge badge-no">?</span>';
       card.innerHTML=`
         <div class="hive-recap-header">
-          <div style="display:flex;align-items:center;gap:8px"><span class="qdot" style="background:${lastCol};border:1.5px solid ${lastBrd}"></span><span style="font-weight:500">${h.name}</span><span style="font-size:11px;color:var(--txt2)">${h.type} — ${h.queenLine||'?'}</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><span class="qdot" style="background:${lastCol};border:1.5px solid ${lastBrd}"></span><span style="font-weight:500">${h.name}</span>${h.archived?'<span class="badge badge-archive"><i class="ti ti-archive" style="font-size:10px"></i> Archivée</span>':''}<span style="font-size:11px;color:var(--txt2)">${h.type}</span></div>
           <span style="font-size:11px;color:var(--txt2)">Dernière : ${ds}</span>
         </div>
         <div class="hive-recap-body">
           <div class="hive-recap-row"><span>Reine vue</span><span>${yn(last.queenSeen,false)}</span></div>
           <div class="hive-recap-row"><span>Couleur reine</span><span><span class="qdot" style="background:${lastCol};border:1.5px solid ${lastBrd}"></span> ${last.queenColor||h.queenColor}</span></div>
           <div class="hive-recap-row"><span>Cadres occupés</span><span>${last.framesOccupied} / 20</span></div>
-          <div class="hive-recap-row"><span>Cire gaufrée ajoutée</span><span>${last.waxFrames} cadre${last.waxFrames>1?'s':''}</span></div>
           <div class="hive-recap-row"><span>Force colonie</span><span>${last.colonyStrength}%</span></div>
           <div class="hive-recap-row"><span>Cellules royales</span><span>${last.royalCells===true?'<span class="badge badge-danger"><i class="ti ti-alert-triangle" style="font-size:11px"></i> Oui</span>':last.royalCells===false?'<span class="badge badge-ok">Non</span>':'<span class="badge badge-no">?</span>'}</span></div>
           <div class="hive-recap-row"><span>Couvain</span><span>${yn(last.broodPresent,true)}</span></div>
@@ -706,24 +765,20 @@ function exportData(){
   const d=new Date();a.download=`rucher_sauvegarde_${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}.json`;
   document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);toast('Sauvegarde téléchargée ✓');
 }
-
 function importData(event){
   const file=event.target.files[0];if(!file)return;
   if(!confirm('Importer cette sauvegarde ? Les données actuelles seront remplacées.')){event.target.value='';return;}
   const reader=new FileReader();
   reader.onload=e=>{
-    try{
-      const data=JSON.parse(e.target.result);if(!data.hives||!data.visits)throw new Error();
-      S.hives=data.hives;S.visits=data.visits;save();renderCalendar();renderHiveList();toast('Sauvegarde importée ✓');showPage('cal');
-    }catch{alert('Fichier invalide.');}event.target.value='';
+    try{const data=JSON.parse(e.target.result);if(!data.hives||!data.visits)throw new Error();S.hives=data.hives;S.visits=data.visits;save();renderCalendar();renderHiveList();toast('Sauvegarde importée ✓');showPage('cal');}
+    catch{alert('Fichier invalide.');}event.target.value='';
   };reader.readAsText(file);
 }
-
 function renderDataInfo(){
-  const th=S.hives.length,tv=Object.keys(S.visits).length;
+  const th=S.hives.length,tv=Object.keys(S.visits).length,ta=archivedHives().length;
   const dates=Object.values(S.visits).map(v=>v.date).sort();
   const f=dates[0],l=dates[dates.length-1];
-  let info=`${th} ruche${th>1?'s':''} — ${tv} visite${tv>1?'s':''}`;
+  let info=`${th} ruche${th>1?'s':''} (${ta} archivée${ta>1?'s':''}) — ${tv} visite${tv>1?'s':''}`;
   if(f&&l&&f!==l){const[fy,fm,fd]=f.split('-').map(Number);const[ly,lm,ld]=l.split('-').map(Number);info+=`<br>Première visite : ${fd} ${MONTHS[fm-1]} ${fy}<br>Dernière visite : ${ld} ${MONTHS[lm-1]} ${ly}`;}
   else if(f){const[fy,fm,fd]=f.split('-').map(Number);info+=`<br>Visite le : ${fd} ${MONTHS[fm-1]} ${fy}`;}
   document.getElementById('data-info').innerHTML=info;
